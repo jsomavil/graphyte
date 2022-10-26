@@ -19,13 +19,17 @@ RUN yum install -y epel-release && \
     yum upgrade -y python-setuptools
 
 
-#### 4. SET JAVA_HOME environment variable
+#### 3. SET JAVA_HOME environment variable
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
 
 
 
-#### 6. Install Graphyte
+#### 4. Install Graphyte
 RUN cd /usr/local \
 && git clone https://github.com/CiscoDevNet/graphyte.git \
 && cd graphyte \
 && make all
+
+#### 5. Downgrade XLRT version to XLSX compatible (<2.0.0)
+#### TODO: migrate param_utils.py to Pandas with openpyxel
+RUN pip install xlrd==1.2.0
